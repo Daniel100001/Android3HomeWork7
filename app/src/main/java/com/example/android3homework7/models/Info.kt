@@ -14,5 +14,5 @@ data class Info(
     val previous: String,
 
     @SerializedName("results")
-    val results: List<ResultsItem>
+    val results: List<PokemonModel>
 )

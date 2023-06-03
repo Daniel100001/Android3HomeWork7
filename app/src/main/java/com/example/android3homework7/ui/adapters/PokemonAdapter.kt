@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android3homework7.databinding.ItemPokemonBinding
-import com.example.android3homework7.models.ResultsItem
+import com.example.android3homework7.models.PokemonModel
 
 class PokemonAdapter :
-    PagingDataAdapter<ResultsItem, PokemonAdapter.ViewHolder>(DiffUtilCallback()) {
+    PagingDataAdapter<PokemonModel, PokemonAdapter.ViewHolder>(DiffUtilCallback()) {
 
     inner class ViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(resultsItem: ResultsItem) {
+        fun onBind(pokemonModel: PokemonModel) {
             val pokemonId =
-                resultsItem.url.replace("https://pokeapi.co/api/v2/pokemon/", "").replace("/", "")
+                pokemonModel.url.replace("https://pokeapi.co/api/v2/pokemon/", "").replace("/", "")
                     .toInt()
             Glide.with(binding.itemPokemonImage.context)
                 .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$pokemonId.png")
                 .into(binding.itemPokemonImage)
-            binding.itemPokemonName.text = resultsItem.name
+            binding.itemPokemonName.text = pokemonModel.name
         }
     }
 
@@ -41,13 +41,13 @@ class PokemonAdapter :
         getItem(position)?.let { holder.onBind(it) }
     }
 
-    class DiffUtilCallback : DiffUtil.ItemCallback<ResultsItem>() {
+    class DiffUtilCallback : DiffUtil.ItemCallback<PokemonModel>() {
 
-        override fun areItemsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+        override fun areItemsTheSame(oldItem: PokemonModel, newItem: PokemonModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+        override fun areContentsTheSame(oldItem: PokemonModel, newItem: PokemonModel): Boolean {
             return oldItem == newItem
         }
     }

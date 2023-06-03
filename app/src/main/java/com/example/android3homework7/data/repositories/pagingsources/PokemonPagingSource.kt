@@ -5,18 +5,18 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.android3homework7.data.remote.apiservises.PokemonApiService
 import com.example.android3homework7.models.Info
-import com.example.android3homework7.models.ResultsItem
+import com.example.android3homework7.models.PokemonModel
 import retrofit2.HttpException
 import java.io.IOException
 
 private const val CHARACTER_STARTING_PAGE_INDEX = 1
 
 class PokemonPagingSource(private var service: PokemonApiService) :
-    PagingSource<Int, ResultsItem>() {
+    PagingSource<Int, PokemonModel>() {
 
     private val info: Info? = null
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultsItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokemonModel> {
         val position = params.key ?: CHARACTER_STARTING_PAGE_INDEX
         return try {
             val response = service.fetchCharacters(position, 0, 248)
@@ -37,7 +37,7 @@ class PokemonPagingSource(private var service: PokemonApiService) :
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, ResultsItem>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, PokemonModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

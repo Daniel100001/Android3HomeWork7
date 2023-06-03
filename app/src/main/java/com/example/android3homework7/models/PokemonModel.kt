@@ -2,7 +2,7 @@ package com.example.android3homework7.models
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultsItem(
+data class PokemonModel(
 
     @SerializedName("id")
     var id: Int,
