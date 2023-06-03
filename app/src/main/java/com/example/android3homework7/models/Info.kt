@@ -7,12 +7,12 @@ data class Info(
     @SerializedName("count")
     val count: Int,
 
-    @SerializedName("pages")
-    val pages: Int,
-
     @SerializedName("next")
     val next: String,
 
-    @SerializedName("prev")
-    val prev: String
+    @SerializedName("previous")
+    val previous: String,
+
+    @SerializedName("results")
+    val results: List<ResultsItem>
 )

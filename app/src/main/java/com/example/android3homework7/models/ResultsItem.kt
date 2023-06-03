@@ -13,16 +13,4 @@ data class ResultsItem(
     @SerializedName("url")
     val url: String,
 
-    @SerializedName("base_experience")
-    var base_experience: Int,
-
-    @SerializedName("height")
-    var height: Int,
-
-    @SerializedName("order")
-    var order: Int,
-
-    @SerializedName("weight")
-    var weight: Int
-
 )

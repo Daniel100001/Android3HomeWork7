@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.android3homework7.data.remote.apiservises.PokemonApiService
+import com.example.android3homework7.models.Info
 import com.example.android3homework7.models.ResultsItem
 import retrofit2.HttpException
 import java.io.IOException
@@ -13,15 +14,17 @@ private const val CHARACTER_STARTING_PAGE_INDEX = 1
 class PokemonPagingSource(private var service: PokemonApiService) :
     PagingSource<Int, ResultsItem>() {
 
+    private val info: Info? = null
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultsItem> {
         val position = params.key ?: CHARACTER_STARTING_PAGE_INDEX
         return try {
-            val response = service.fetchCharacters(position)
-            val next = response.info.next
+            val response = service.fetchCharacters(position, 0, 248)
+            val next = info?.next
             val nextPageNumber = if (next == null) {
                 null
             } else
-                Uri.parse(response.info.next).getQueryParameter("page")!!.toInt()
+                Uri.parse(info?.next).getQueryParameter("page")!!.toInt()
             LoadResult.Page(
                 data = response.results,
                 prevKey = null,
