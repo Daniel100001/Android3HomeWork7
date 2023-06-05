@@ -2,15 +2,15 @@ package com.example.android3homework7.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android3homework7.databinding.ItemPokemonBinding
 import com.example.android3homework7.models.PokemonModel
 
 class PokemonAdapter :
-    PagingDataAdapter<PokemonModel, PokemonAdapter.ViewHolder>(DiffUtilCallback()) {
+    ListAdapter<PokemonModel, PokemonAdapter.ViewHolder>(DiffUtilCallback()) {
 
     inner class ViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,7 +38,7 @@ class PokemonAdapter :
     }
 
     override fun onBindViewHolder(holder: PokemonAdapter.ViewHolder, position: Int) {
-        getItem(position)?.let { holder.onBind(it) }
+        holder.onBind(getItem(position))
     }
 
     class DiffUtilCallback : DiffUtil.ItemCallback<PokemonModel>() {
